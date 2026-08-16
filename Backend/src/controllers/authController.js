@@ -7,67 +7,83 @@ const Jwt_Secret = process.env.JWT_SECRET ;
 //~---------- SignUp Controller -----------------
 
 exports.SignUp = async (req , res) => {
+    try {
+        // --- xtracting the data ---
+        const {name , email , password} = req.body ; 
+        const HashedPassword = await bcrypt.hash(password , 10) ; 
 
-    // --- xtracting the data ---
-    const {name , email , password} = req.body ; 
-    const HashedPassword = await bcrypt.hash(password , 10) ; 
+        const user = await User.findOne({email}); 
 
-    const user = await User.findOne({email}); 
+        if(user){
+            return res.status(404).json({
+                success : false , 
+                message : "User Already Exist"
+            })
+        }
 
-    if(user){
-        return res.status(404).json({
-            success : false , 
-            message : "User Already Exist"
-        })
+        await User.create({
+            name , email , password : HashedPassword
+        }); 
+        res.status(201).json({
+            success : true , 
+            message : "Signup SuccessFully"
+        }); 
     }
-
-    await User.create({
-        name , email , password : HashedPassword
-    }); 
-    res.status(201).json({
-        success : true , 
-        message : "Signup SuccessFully"
-    }); 
-
+    
+    catch (error) {
+        return res.status(500).json({
+            success: false ,
+            message: 'Error While Signup' , 
+            error: error.message 
+        }); 
+    }
 }; 
 
 
 //~---------- Login Controller -----------------
 
 exports.Login = async (req , res) => {
+    try {
+        // --- Xtracting the data --- 
+        const {email , password} = req.body ; 
+        const user = await User.findOne({email}) ; 
+        if(!user){
+            return res.status(404).json({
+                success : false , 
+                message : "User Not Exist" 
+            }); 
+        }
 
-    // --- Xtracting the data --- 
-    const {email , password} = req.body ; 
-    const user = await User.findOne({email}) ; 
-    if(!user){
-        return res.status(404).json({
-            success : false , 
-            message : "User Not Exist" 
+        const isMatch = await bcrypt.compare(password , user.password) ; 
+        if(!isMatch){
+            return res.status(401).json({
+                success : false , 
+                message : "Wrong Password"
+            })
+        }
+
+        const token = jwt.sign({ id : user._id } , Jwt_Secret) ; 
+
+        res.cookie("token" , token , {
+            httpOnly : true , 
+            maxAge : 7 * 24 * 60 * 60 * 1000 , 
+            sameSite: 'None',
+            secure : true
+        })
+
+        res.status(200).json({
+            success : true, 
+            message : "Login SuccessFully",
         }); 
     }
-
-    const isMatch = await bcrypt.compare(password , user.password) ; 
-    if(!isMatch){
-        return res.status(401).json({
-            success : false , 
-            message : "Wrong Password"
-        })
+    
+    catch (error) {
+        return res.status(500).json({
+            success: false ,
+            message: 'Error While Login' , 
+            error: error.message 
+        }); 
     }
-
-    const token = jwt.sign({ id : user._id } , Jwt_Secret) ; 
-
-    res.cookie("token" , token , {
-        httpOnly : true , 
-        maxAge : 7 * 24 * 60 * 60 * 1000 , 
-        sameSite: 'None',
-        secure : true
-    })
-
-    res.status(200).json({
-        success : true, 
-        message : "Login SuccessFully",
-    }); 
-
 }
 
 //~---------- LogOut Controller -----------------
