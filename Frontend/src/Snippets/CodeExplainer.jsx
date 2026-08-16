@@ -53,7 +53,7 @@ const CodeExplainer = () => {
       setLoading(true) ; 
       const PROMPT = PROMPTS.CodeChartGen ; 
 
-      const res = await axios.post("http://localhost:5000/llama/gen-response-groq" , 
+      const res = await axios.post("https://codeecho-backend-three.vercel.app/llama/gen-response-groq" , 
         {code , instruction : PROMPT , title : "Code_Chart"} , 
         {withCredentials : true }
       ); 
@@ -65,7 +65,7 @@ const CodeExplainer = () => {
       try {
         const PROMPT = PROMPTS.CodeExplain ; 
 
-        const res = await axios.post("http://localhost:5000/llama/gen-response-groq" ,
+        const res = await axios.post("https://codeecho-backend-three.vercel.app/llama/gen-response-groq" ,
           {code , instruction : PROMPT , title : "Code_Explainer" } 
           , {withCredentials : true} ) ; 
 
@@ -96,7 +96,7 @@ const CodeExplainer = () => {
   // -------------- Add to Favourite ------------
   const AddToFavourite = async () => {
     try {
-      const res = await axios.post("http://localhost:5000/user/addfavourite" , {code : code , response : response} , {withCredentials : true}) ; 
+      const res = await axios.post("https://codeecho-backend-three.vercel.app/user/addfavourite" , {code : code , response : response} , {withCredentials : true}) ; 
 
       toast(res.data.message) ;  
     }

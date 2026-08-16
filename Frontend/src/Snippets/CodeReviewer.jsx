@@ -47,7 +47,7 @@ const CodeReviewer = () => {
   const fetchReviewData = async () => {
     try {
       const PROMPT = PROMPTS.CodeReviews;
-      const res = await axios.post("http://localhost:5000/llama/gen-response-groq",
+      const res = await axios.post("https://codeecho-backend-three.vercel.app/llama/gen-response-groq",
         { code, instruction: PROMPT, title: "NULL" },
         { withCredentials: true });
 
@@ -91,7 +91,7 @@ const CodeReviewer = () => {
     try {
 
       const PROMPT = PROMPTS.PieChart;
-      const res = await axios.post("http://localhost:5000/llama/gen-response-groq",
+      const res = await axios.post("https://codeecho-backend-three.vercel.app/llama/gen-response-groq",
         { code, instruction: PROMPT, title: "Code_Reviewer" },
         { withCredentials: true });
 

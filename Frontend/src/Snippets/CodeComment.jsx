@@ -68,7 +68,7 @@ const CodeComment = () => {
         Do not give too much comments give only necessary or required comments
     ` ; 
 
-      const res = await axios.post("http://localhost:5000/llama/gen-response-groq" , 
+      const res = await axios.post("https://codeecho-backend-three.vercel.app/llama/gen-response-groq" , 
         { code , instruction : Prompt , title : "Comment_Generator"} , 
         { withCredentials : true } 
       ); 

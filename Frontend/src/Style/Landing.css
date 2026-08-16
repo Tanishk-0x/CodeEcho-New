@@ -3,11 +3,12 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  background: #000000;
-  background: linear-gradient(91deg,rgba(0, 0, 0, 1) 0%, rgba(16, 16, 16, 1) 35%, rgba(40, 40, 40, 1) 100%);
+  background: #080808;
+  background: linear-gradient(135deg, #080808 0%, #0d0d0d 45%, #111111 100%);
   color: white;
   font-family: 'Inter', sans-serif;
   background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 body::-webkit-scrollbar {

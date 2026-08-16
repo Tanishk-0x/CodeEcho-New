@@ -48,7 +48,7 @@ const TopicExplainer = () => {
         setExample('');
 
         const Prompt = PROMPTS.FlowChartData ; 
-        const resChart = await axios.post("http://localhost:5000/llama/gen-response-groq" , 
+        const resChart = await axios.post("https://codeecho-backend-three.vercel.app/llama/gen-response-groq" , 
           {code : topic , instruction : Prompt , title:"Topic_Explainer" }, 
           {withCredentials : true}
         ); 
@@ -59,7 +59,7 @@ const TopicExplainer = () => {
         setFlowChart(cleanedChart) ; 
 
         const Prompt0 = PROMPTS.TopicExplain ; 
-        const resExplain = await axios.post("http://localhost:5000/llama/gen-response-groq" , 
+        const resExplain = await axios.post("https://codeecho-backend-three.vercel.app/llama/gen-response-groq" , 
           {code : topic , instruction : Prompt0 , title:"NULL"}, 
           {withCredentials : true}
         ); 

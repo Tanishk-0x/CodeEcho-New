@@ -26,7 +26,7 @@ const CodeConverter = () => {
     
     try {
         setLoading(true);
-        const response = await axios.post('http://localhost:5000/llama/gen-response-groq', 
+        const response = await axios.post('https://codeecho-backend-three.vercel.app/llama/gen-response-groq', 
             {  code , instruction : currentInstruction , title : "Language_Converter" } 
             , {withCredentials : true});
         setresponse(response.data);

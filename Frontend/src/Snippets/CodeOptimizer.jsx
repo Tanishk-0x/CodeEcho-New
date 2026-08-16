@@ -35,7 +35,7 @@ const CodeOptimizer = () => {
     try {
       setLoading(true) ; 
       const Prompt = PROMPTS.OptimizedCode ; 
-      const res = await axios.post("http://localhost:5000/llama/gen-response-groq" , 
+      const res = await axios.post("https://codeecho-backend-three.vercel.app/llama/gen-response-groq" , 
         {code , instruction : Prompt , title:"Code_Optimizer"}, 
         {withCredentials: true}
       ); 
@@ -65,7 +65,7 @@ const CodeOptimizer = () => {
 
       `;
 
-      const result = await axios.post("http://localhost:5000/llama/gen-response-groq" , 
+      const result = await axios.post("https://codeecho-backend-three.vercel.app/llama/gen-response-groq" , 
         {code , instruction : PromptJson , title:"NULL"}, 
         { withCredentials : true }
       ); 
@@ -96,7 +96,7 @@ const CodeOptimizer = () => {
     try {
       setLoading(true) ; 
       const Prompt = PROMPTS.QuickFix ; 
-      const res = await axios.post("https://codeechobackend.onrender.com/ai/get-response" , 
+      const res = await axios.post("https://codeecho-backend-three.vercel.app/llama/gen-response-groq" , 
         {code , instruction : Prompt , title:"Quick_Fixer"}, 
         { withCredentials : true }
       ); 
