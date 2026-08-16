@@ -3,7 +3,7 @@ require('dotenv').config() ;
 
 exports.dbConnect = () => {
 
-    const URL = "mongodb+srv://spiritualguruji007:5MAS6wEv7Fnq43uQ@trybyown.dravmm4.mongodb.net/?retryWrites=true&w=majority&appName=Cloudinary" ;
+    const URL = process.env.MONGO_URL ;
 
     mongoose.connect(URL)
     .then( () => {

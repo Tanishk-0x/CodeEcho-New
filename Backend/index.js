@@ -1,3 +1,4 @@
+require('dotenv').config() ; 
 const express = require('express') ; 
 const aiRoutes = require('./src/routes/ai.route')  ; 
 const cors = require('cors') ; 
@@ -8,11 +9,12 @@ const UserRoutes = require('./src/routes/user') ;
 const cookieParser = require('cookie-parser') ; 
 const meRoutes = require('./src/routes/meRoutes') ; 
 const userProfileRoutes = require('./src/routes/userProfileRoute') ; 
-require('dotenv').config() ; 
 require('./src/Config/database').dbConnect() ; 
 const GroqRoutes = require('./src/Llama/llama.routes'); 
 
 const PORT = 5000 ; 
+
+app.set('trust proxy', 1);
 
 
 // MiddleWares 
@@ -20,6 +22,7 @@ app.use(express.json()) ;
 
 const allowedOrigins = [
   'http://localhost:5173',
+  process.env.FRONTEND_URL
 ];
 
 app.use(cors({
@@ -53,11 +56,12 @@ app.use('/profile' , userProfileRoutes) ;
 app.use('/llama' , GroqRoutes) ; 
 
 
-// -- app starts --
-app.listen(PORT , () => {
-    console.log(`Server Started SuccessFully At Port No : ${PORT} ✅`) ; 
-})
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
+        console.log(`Server Started SuccessFully At Port No : ${PORT} ✅`); 
+    });
+}
 
+module.exports = app;
 
-module.exports = app ; 
 
