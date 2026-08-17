@@ -10,7 +10,7 @@ const groq = new Groq({
 const GroqGenerate = async ( code , instruction ) => {
     try {
         const ChatCompletion = await groq.chat.completions.create({
-            model : "llama-3.3-70b-versatile" , 
+            model : "openai/gpt-oss-120b" , 
 
             messages : [
                 {
